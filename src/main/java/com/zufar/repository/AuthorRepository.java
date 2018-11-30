@@ -4,9 +4,10 @@ import com.zufar.domain.Author;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class AuthorRepository {
@@ -18,8 +19,8 @@ public class AuthorRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    public void save(Author author) {
-        sessionFactory.getCurrentSession().persist(author);
+    public Long persist(Author author) {
+        return  (Long)sessionFactory.getCurrentSession().save(author);
     }
 
     public void delete(Author author) {
@@ -30,7 +31,7 @@ public class AuthorRepository {
         sessionFactory.getCurrentSession().update(author);
     }
 
-    public Author get(long id) {
+    public Author get(Long id) {
         return sessionFactory.getCurrentSession().
                 createQuery("from Author where id =?1", Author.class).
                 setParameter(1, id).getSingleResult();
@@ -39,6 +40,13 @@ public class AuthorRepository {
     public List<Author> getAll() {
         return sessionFactory.getCurrentSession().
                 createQuery("from Author", Author.class).
+                getResultList();
+    }
+
+        public List<Author> getAll(Set<Long> authorIds) {
+        return sessionFactory.getCurrentSession().
+                createQuery("from Author c where c.id in ?1", Author.class).
+                setParameter(1, authorIds).
                 getResultList();
     }
 }

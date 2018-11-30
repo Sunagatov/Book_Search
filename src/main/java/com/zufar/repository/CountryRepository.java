@@ -19,10 +19,6 @@ public class CountryRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    public void saveOrUpdate(Country country) {
-        sessionFactory.getCurrentSession().saveOrUpdate(country);
-    }
-
     public void save(Country country) {
         sessionFactory.getCurrentSession().persist(country);
     }
@@ -35,16 +31,15 @@ public class CountryRepository {
         sessionFactory.getCurrentSession().update(country);
     }
 
-    public Country get(long id) {
+    public Country get(Long id) {
         return sessionFactory.getCurrentSession().
                 createQuery("from Country where id =?1", Country.class).
                 setParameter(1, id).getSingleResult();
     }
 
-    @Transactional
     public List<Country> getAll() {
         return sessionFactory.getCurrentSession().
-                createQuery("from Review", Country.class).
+                createQuery("from Country", Country.class).
                 getResultList();
     }
 }

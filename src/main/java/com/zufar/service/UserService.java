@@ -23,25 +23,25 @@ public class UserService {
     }
 
     public void save(User user) {
-        countryRepository.saveOrUpdate(user.getCountry());
-        userRepository.save(user);
+        userRepository.persist(user);
     }
 
-    @Transactional
     public void delete(User user) {
         userRepository.delete(user);
     }
 
-    @Transactional
     public void update(User user) {
         userRepository.update(user);
     }
 
-    public User get(long id) {
+    public User get(String login, String password) {
+        return userRepository.get(login, password);
+    }
+
+    public User get(Long id) {
         return userRepository.get(id);
     }
 
-    @Transactional
     public List<User> getAll() {
         return userRepository.getAll();
     }

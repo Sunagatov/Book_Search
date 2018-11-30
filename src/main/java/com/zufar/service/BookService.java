@@ -2,13 +2,18 @@ package com.zufar.service;
 
 import com.zufar.domain.Author;
 import com.zufar.domain.Book;
-import com.zufar.domain.Review;
+import com.zufar.domain.Country;
+import com.zufar.domain.Genre;
+import com.zufar.dto.BookDTO;
+import com.zufar.dto.DateDTO;
 import com.zufar.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -18,35 +23,41 @@ public class BookService {
     private final AuthorRepository authorRepository;
     private final ReviewRepository reviewRepository;
     private final CountryRepository countryRepository;
+    private final GenreRepository genreRepository;
 
     @Autowired
     public BookService(
             BookRepository bookRepository,
             AuthorRepository authorRepository,
             ReviewRepository reviewRepository,
-            CountryRepository countryRepository
+            CountryRepository countryRepository,
+            GenreRepository genreRepository
     ) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.reviewRepository = reviewRepository;
         this.countryRepository = countryRepository;
+        this.genreRepository = genreRepository;
     }
 
-    public void saveList(List<Book> books) {
-        for (Book book : books) {
-            bookRepository.save(book);
-        }
-    }
+    public void save(BookDTO bookDTO) {
+        DateDTO publication_dateDTO = bookDTO.getPublication_date();
+        LocalDate publication_date = LocalDate.of(publication_dateDTO.getYear(), publication_dateDTO.getMonth(), publication_dateDTO.getDay());
+        Long countryId = bookDTO.getCountryId();
+        Country country = countryRepository.get(countryId);
+        Set<Long> authorsIds = bookDTO.getAuthorsIds();
+        List<Author> authors = authorRepository.getAll(authorsIds);
+        Set<Long> genresIds = bookDTO.getGenresIds();
+        List<Genre> genres = genreRepository.getAll(genresIds);
 
-    public void save(Book book) {
-        countryRepository.saveOrUpdate(book.getCountry());
-        for (Author author : book.getAuthors()) {
-            authorRepository.save(author);
-        }
-//        for (Review review : book.getReviews()) {
-//            reviewRepository.save(review);
-//        }
-        bookRepository.save(book);
+        Book book = new Book();
+        book.setTitle(bookDTO.getTitle());
+        book.setPublication_date(publication_date);
+        book.setPage_count(bookDTO.getPage_count());
+        book.setCountry(country);
+        book.setGenres(genres);
+        book.setAuthors(authors);
+        bookRepository.persist(book);
     }
 
     public void delete(Book book) {
@@ -57,8 +68,9 @@ public class BookService {
         bookRepository.update(author);
     }
 
-    public Book get(long id) {
-        return bookRepository.get(id);
+    public Book get(Long id) {
+        Book book = bookRepository.get(id);
+        return book;
     }
 
     public List<Book> getAll() {

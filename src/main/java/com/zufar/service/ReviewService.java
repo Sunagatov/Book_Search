@@ -29,28 +29,24 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
-    @Transactional
     public void save(Review review) {
-        bookRepository.save(review.getBook());
-        userRepository.save(review.getUser());
+        bookRepository.persist(review.getBook());
+        userRepository.persist(review.getUser());
         reviewRepository.save(review);
     }
 
-    @Transactional
     public void delete(Review review) {
         reviewRepository.delete(review);
     }
 
-    @Transactional
     public void update(Review review) {
         reviewRepository.update(review);
     }
 
-    public Review get(long id) {
+    public Review get(Long id) {
         return reviewRepository.get(id);
     }
 
-    @Transactional
     public List<Review> getAll() {
         return reviewRepository.getAll();
     }

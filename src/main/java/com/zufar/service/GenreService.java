@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -23,22 +24,23 @@ public class GenreService {
         genreRepository.save(genre);
     }
 
-    @Transactional
     public void delete(Genre genre) {
         genreRepository.delete(genre);
     }
 
-    @Transactional
     public void update(Genre genre) {
         genreRepository.update(genre);
     }
 
-    public Genre get(long id) {
+    public Genre get(Long id) {
         return genreRepository.get(id);
     }
 
-    @Transactional
     public List<Genre> getAll() {
         return genreRepository.getAll();
+    }
+
+    public List<Genre> getAll(Set<Long> genresIds) {
+        return genreRepository.getAll(genresIds);
     }
 }

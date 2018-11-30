@@ -18,36 +18,36 @@ public class UserRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    @Transactional
-    public void save(User user) {
+    public void persist(User user) {
         sessionFactory.getCurrentSession().persist(user);
     }
 
-    @Transactional
     public void delete(User user) {
         sessionFactory.getCurrentSession().delete(user);
     }
 
-    @Transactional
     public void update(User user) {
         sessionFactory.getCurrentSession().update(user);
     }
 
-    @Transactional(readOnly = true)
-    public User get(long id) {
+    public User get(Long id) {
         return sessionFactory.getCurrentSession().
                 createQuery("from User where id =?1", User.class).
                 setParameter(1, id).getSingleResult();
     }
 
-    @Transactional
+    public User get(String login, String password) {
+        return sessionFactory.getCurrentSession().
+                createQuery("from User where LOGIN =?1 and PASSWORD =?2", User.class).
+                setParameter(1, login).setParameter(2, password).getSingleResult();
+    }
+
     public List<User> getAll() {
         return sessionFactory.getCurrentSession().
                 createQuery("from User", User.class).
                 getResultList();
     }
 
-    @Transactional
     public boolean isLoginUnique(String login) {
         String loginFromDB = sessionFactory.getCurrentSession().
                 createQuery("select LOGIN from User where LOGIN =?1", String.class).

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -21,17 +20,17 @@ public class AuthorsController {
         this.authorService = authorService;
     }
 
-    @PostMapping("/authors")
+    @GetMapping("/authors")
     public String getAuthors(ModelMap modelMap) {
         List<Author> authors = authorService.getAll();
         modelMap.addAttribute("authors", authors);
         return "authorList";
     }
 
-    @GetMapping("/author/${id}")
-    public String getAuthors(@PathVariable long id) {
-        System.out.println(id);
-
-        return "authorList";
+    @GetMapping("/author/{id}")
+    public String getAuthor(@PathVariable(value = "id") long id, ModelMap modelMap) {
+        Author author = authorService.get(id);
+        modelMap.addAttribute("author", author);
+        return "authorProfile";
     }
 }

@@ -10,29 +10,16 @@
 <body>
 <div class="header">
     <div class="logo">
-        <form action="home" method="get">
+        <form action="/home" method="get">
             <input id="mainButton" value="book_search" type="submit"/>
             <h2>easy way to find a favourite book</h2>
         </form>
-    </div>
-    <div class="search">
-        <div class="registrationButtons">
-            <a href="#" onclick="document.getElementById('id01').style.display='block'">Sign in</></a>
-            <form action="registration" method="get">
-                <input id="signUpButton" value="Sign up" type="submit"/>
-            </form>
-        </div>
     </div>
 </div>
 <div class='navigation'>
     <ul>
         <li>
-            <form action="/reviews" method="post">
-                <input id="menuButton" value="Reviews" type="submit"/>
-            </form>
-        </li>
-        <li>
-            <form action="/books" method="post">
+            <form action="/books" method="get">
                 <input id="menuButton" value="Books" type="submit"/>
             </form>
         </li>
@@ -51,9 +38,11 @@
                         <p>${author.last_name}</p>
                         <h3>Nickname:</h3>
                         <p>${author.nick_name}</p>
+                        <h3>Country:</h3>
+                        <p>${author.country.name}</p>
                     </div>
                     <div class="learn">
-                        <form action="author/${author.id}" method="get">
+                        <form action="/author/${author.id}" method="get">
                             <input type="submit" value="Learn">
                         </form>
                     </div>

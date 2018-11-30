@@ -18,29 +18,24 @@ public class ReviewRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    @Transactional
     public void save(Review review) {
-        sessionFactory.getCurrentSession().persist(review);
+        sessionFactory.getCurrentSession().saveOrUpdate(review);
     }
 
-    @Transactional
     public void delete(Review review) {
         sessionFactory.getCurrentSession().delete(review);
     }
 
-    @Transactional
     public void update(Review review) {
         sessionFactory.getCurrentSession().update(review);
     }
 
-    @Transactional(readOnly = true)
-    public Review get(long id) {
+    public Review get(Long id) {
         return sessionFactory.getCurrentSession().
                 createQuery("from Review where id =?1", Review.class).
                 setParameter(1, id).getSingleResult();
     }
 
-    @Transactional
     public List<Review> getAll() {
         return sessionFactory.getCurrentSession().
                 createQuery("from Review", Review.class).

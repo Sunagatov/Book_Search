@@ -9,7 +9,7 @@
 <body>
 <div class="header">
     <div class="logo">
-        <form action="home" method="get">
+        <form action="/home" method="get">
             <input id="mainButton" value="book_search" type="submit"/>
             <h2>easy way to find a favourite book</h2>
         </form>
@@ -18,13 +18,8 @@
 <div class='navigation'>
     <ul>
         <li>
-            <form action="books" method="post">
+            <form action="/books" method="post">
                 <input id="menuButton" value="Books" type="submit"/>
-            </form>
-        </li>
-        <li>
-            <form action="reviews" method="post">
-                <input id="menuButton" value="Reviews" type="submit"/>
             </form>
         </li>
     </ul>
@@ -39,28 +34,15 @@
             <label for="lname">Last Name:</label>
             <input type="text" id="lname" name="last_name" placeholder="Your last name..">
             <label for="patronymic">Patronymic:</label>
-            <input type="text"  id="patronymic" name="patronymic" placeholder="Your patronymic..">
+            <input type="text" id="patronymic" name="patronymic" placeholder="Your patronymic..">
             <label for="nickname">Nickname:</label>
-            <input type="text"  id="nickname" name="nickname" placeholder="Your nickname..">
-            <label>Gender:</label>
-            <div class="gender">
-                <div class="male">
-                    <input type="radio" value="radio" name="radio-group" id="male"/>
-                    <label for="male">Male</label>
-                </div>
-                <div class="female">
-                    <input type="radio" value="radio" name="radio-group" id="female"/>
-                    <label for="female">Female</label>
-                </div>
-            </div>
-            <label for="country">Country:</label>
-            <select id="country" name="country">
+            <input type="text" id="nickname" name="nickname" placeholder="Your nickname..">
+            <label for="countryName">Country:</label>
+            <select id="countryName" name="countryName">
                 <option value="-1">Country:</option>
-                <option value="Australia">Australia</option>
-                <option value="Canada">Canada</option>
-                <option value="USA">USA</option>
-                <option value="Russia">Russia</option>
-                <option value="Brazil">Brazil</option>
+                <#list countries as countryName>
+                    <option value="${countryName.id}">${countryName.name}</option>
+            </#list>
             </select>
             <label>Birthday:</label>
             <div class="publicationDate">

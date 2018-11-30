@@ -2,6 +2,7 @@ package com.zufar.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -10,26 +11,30 @@ public class Book {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String title;
 
-    @ManyToMany(mappedBy = "books", cascade = CascadeType.ALL)
-    private Set<Author> authors;
+    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
+    private List<Author> authors;
 
     @OneToMany(mappedBy = "book")
-    private Set<Review> reviews;
+    private List<Review> reviews;
 
     @Column
     private LocalDate publication_date;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Genre> genres;
+    @ManyToMany
+    @JoinTable(name = "Books_Genres",
+            joinColumns = {@JoinColumn(name = "book_id")},
+            inverseJoinColumns = {@JoinColumn(name = "genre_id")}
+    )
+    private List<Genre> genres;
 
     @Column
     private int page_count;
@@ -37,11 +42,11 @@ public class Book {
     public Book() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,19 +58,19 @@ public class Book {
         this.title = title;
     }
 
-    public Set<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Set<Author> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 
-    public Set<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Set<Review> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 
@@ -85,11 +90,11 @@ public class Book {
         this.country = country;
     }
 
-    public Set<Genre> getGenres() {
+    public List<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(Set<Genre> genres) {
+    public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
 
