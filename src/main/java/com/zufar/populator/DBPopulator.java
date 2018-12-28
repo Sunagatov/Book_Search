@@ -1,5 +1,6 @@
 package com.zufar.populator;
 
+import com.zufar.domain.Author;
 import com.zufar.domain.Book;
 import com.zufar.domain.Country;
 import com.zufar.domain.Genre;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -86,45 +88,7 @@ public class DBPopulator {
         genreService.save(genre_action);
         genreService.save(genre_drama);
         genreService.save(genre_biography);
-
-//        User zufar = new User();
-//        zufar.setFirst_name("Zufar");
-//        zufar.setLast_name("Sunagatov");
-//        zufar.setPatronymic("Rustamovich");
-//        zufar.setNick_name("Alice");
-//        zufar.setLogin("zuf999@mail.ru");
-//        zufar.setPassword("4815162342");
-//        zufar.setSex(Sex.MALE);
-//        zufar.setBirthday(LocalDate.of(1995, 12, 20));
-//        zufar.setCountryId(russia);
-//
-//        User david = new User();
-//        david.setFirst_name("David");
-//        david.setLast_name("Kalachyan");
-//        david.setPatronymic("Saribegovich");
-//        david.setNick_name("DavidPotroshitel");
-//        david.setLogin("kalachand@gmail.com");
-//        david.setPassword("432652");
-//        david.setSex(Sex.MALE);
-//        david.setBirthday(LocalDate.of(1996, 3, 19));
-//        david.setCountryId(russia);
-//
-//        User ayrat = new User();
-//        ayrat.setFirst_name("Ayrat");
-//        ayrat.setLast_name("Gimaev");
-//        ayrat.setPatronymic("Rafailevich");
-//        ayrat.setNick_name("AyroBratan");
-//        ayrat.setLogin("gimaev_1996@mail.ru");
-//        ayrat.setPassword("52624323");
-//        ayrat.setSex(Sex.MALE);
-//        ayrat.setBirthday(LocalDate.of(1996, 2, 26));
-//        ayrat.setCountryId(russia);
-//
-//        userService.persist(zufar);
-//        userService.persist(david);
-//        userService.persist(ayrat);
-
-
+///////////////////////////AFTER DEFAULT DATA////////////////////////////////////////////////////////////////////////////
         AuthorDTO orwell = new AuthorDTO();
         orwell.setFirst_name("Eric");
         orwell.setLast_name("Blair");
@@ -170,6 +134,7 @@ public class DBPopulator {
         authorsIds.add(orwelId);
         authorsIds.add(coelhoId);
         authorsIds.add(bradburyId);
+        authorsIds.add(asimovId);
 
         Set<Long> genresIds = new HashSet<>();
         genresIds.add(genre_politicalSatire.getId());
@@ -200,9 +165,6 @@ public class DBPopulator {
         book_clergymanDaughter.setPage_count(935);
         book_clergymanDaughter.setPublication_date(new DateDTO(1988, 12, 28));
 
-        authorsIds = new HashSet<>();
-        authorsIds.add(coelho.getId());
-
         BookDTO book_veronica = new BookDTO();
         book_veronica.setTitle("Veronika Decides to Die");
         book_veronica.setAuthorsIds(authorsIds);
@@ -219,9 +181,6 @@ public class DBPopulator {
         book_alquimista.setPage_count(234);
         book_alquimista.setPublication_date(new DateDTO(1923, 7, 18));
 
-        authorsIds = new HashSet<>();
-        authorsIds.add(bradbury.getId());
-
         BookDTO book_451 = new BookDTO();
         book_451.setTitle("Fahrenheit 451");
         book_451.setAuthorsIds(authorsIds);
@@ -235,50 +194,15 @@ public class DBPopulator {
         bookService.save(book_animalFarm);
         bookService.save(book_alquimista);
         bookService.save(book_veronica);
-
-//        Review review1 = new Review();
-//        review1.setBook(book_1984);
-//        review1.setPublication_date(LocalDate.of(1944, 8, 1));
-//        review1.setUser(zufar);
-//        review1.setText("A text about a book.");
-//
-//        Review review2 = new Review();
-//        review2.setBook(book_451);
-//        review2.setPublication_date(LocalDate.of(1944, 8, 1));
-//        review2.setUser(zufar);
-//        review2.setText("A text about a book.");
-//
-//        Review review3 = new Review();
-//        review3.setBook(book_alquimista);
-//        review3.setPublication_date(LocalDate.of(1944, 8, 1));
-//        review3.setUser(zufar);
-//        review3.setText("A text about a book.");
-//
-//        Review review4 = new Review();
-//        review4.setBook(book_animalFarm);
-//        review4.setPublication_date(LocalDate.of(1944, 8, 1));
-//        review4.setUser(zufar);
-//        review4.setText("A text about a book.");
-//
-//        Review review5 = new Review();
-//        review5.setBook(book_clergymanDaughter);
-//        review5.setPublication_date(LocalDate.of(1944, 8, 1));
-//        review5.setUser(david);
-//        review5.setText("A text about a book.");
-//
-//        Review review6 = new Review();
-//        review6.setBook(book_veronica);
-//        review6.setPublication_date(LocalDate.of(1944, 8, 1));
-//        review6.setUser(ayrat);
-//        review6.setText("A text about a book.");
-
-//        reviewService.persist(review1);
-//        reviewService.persist(review2);
-//        reviewService.persist(review3);
-//        reviewService.persist(review4);
-//        reviewService.persist(review5);
-//        reviewService.persist(review6);
-
-        System.out.println("SUCCESSFUL CREATION");
+        List<Book> allBooks = bookService.getAll();
+        int i = 0;
+        for (Book book : allBooks) {
+            ++i;
+            Book current = book;
+            System.out.println(i+" - "+book.getTitle());
+            for (Author author : book.getAuthors()) {
+                System.out.println(author.getNick_name());
+            }
+        }
     }
 }

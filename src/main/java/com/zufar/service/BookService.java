@@ -1,9 +1,6 @@
 package com.zufar.service;
 
-import com.zufar.domain.Author;
-import com.zufar.domain.Book;
-import com.zufar.domain.Country;
-import com.zufar.domain.Genre;
+import com.zufar.domain.*;
 import com.zufar.dto.BookDTO;
 import com.zufar.dto.DateDTO;
 import com.zufar.repository.*;
@@ -14,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+
 
 @Service
 @Transactional
@@ -49,7 +47,6 @@ public class BookService {
         List<Author> authors = authorRepository.getAll(authorsIds);
         Set<Long> genresIds = bookDTO.getGenresIds();
         List<Genre> genres = genreRepository.getAll(genresIds);
-
         Book book = new Book();
         book.setTitle(bookDTO.getTitle());
         book.setPublication_date(publication_date);
@@ -69,8 +66,7 @@ public class BookService {
     }
 
     public Book get(Long id) {
-        Book book = bookRepository.get(id);
-        return book;
+        return bookRepository.get(id);
     }
 
     public List<Book> getAll() {

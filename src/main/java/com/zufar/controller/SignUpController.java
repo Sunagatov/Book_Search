@@ -1,8 +1,6 @@
 package com.zufar.controller;
 
 import com.zufar.domain.Country;
-import com.zufar.domain.Sex;
-import com.zufar.domain.User;
 import com.zufar.service.CountryService;
 import com.zufar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,7 @@ public class SignUpController {
     public String getRegistrationPage(ModelMap modelMap) {
         List<Country> countries = countryService.getAll();
         modelMap.addAttribute("countries", countries);
-        return "registration";
+        return "registrationView";
     }
 
     @PostMapping("/addUser")
@@ -50,10 +48,10 @@ public class SignUpController {
         if (first_name.isEmpty() || last_name.isEmpty() || patronymic.isEmpty() || country != null || login.isEmpty() || password.isEmpty() ||
                 day == -1 || month == -1 || year == -1) {
             errorMessage = "Error! Some of fields are empty. Please fill all fields.";
-            return "registration";
+            return "registrationView";
         } else if (!userService.isLoginUnique(login)) {
             errorMessage = "Error! This login exists. Please make your password unique!";
-            return "registration";
+            return "registrationView";
         }
         LocalDate birthday = LocalDate.of(year, month, day);
 //        UserDTO user = new User(first_name, last_name, patronymic, nick_name, login, password, Sex.valueOf("MALE"), birthday,

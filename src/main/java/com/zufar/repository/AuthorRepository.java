@@ -20,7 +20,7 @@ public class AuthorRepository {
     }
 
     public Long persist(Author author) {
-        return  (Long)sessionFactory.getCurrentSession().save(author);
+        return (Long) sessionFactory.getCurrentSession().save(author);
     }
 
     public void delete(Author author) {
@@ -43,10 +43,19 @@ public class AuthorRepository {
                 getResultList();
     }
 
-        public List<Author> getAll(Set<Long> authorIds) {
+    public List<Author> getAll(Set<Long> authorIds) {
         return sessionFactory.getCurrentSession().
                 createQuery("from Author c where c.id in ?1", Author.class).
                 setParameter(1, authorIds).
                 getResultList();
     }
+
+//    public List<Author> getAll(Long bookId) {
+//        return sessionFactory.getCurrentSession().
+//                createQuery("from Author c where c.id in ?1", Author.class).
+//                setParameter(1, authorIds).
+//                getResultList();
+//    }
+
+
 }

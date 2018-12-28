@@ -1,10 +1,11 @@
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
     <link rel="stylesheet" type="text/css" href="/resources/css/mainStyle.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/userProfile.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/bookProfile.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/review.css">
     <script type="text/javascript" src="/resources/js/signIn.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="header">
@@ -31,45 +32,37 @@
 </div>
 <div class="main">
     <div class="profile">
-        <h2>${author.nick_name}</h2>
+        <div class=" "></div>
+        <h2 class="bookTitle">${book.title}</h2>
         <hr id="line">
         <div class="ffff">
             <div class="photo">
-                <img src="http://littramplin.ru/wp-content/uploads/2018/06/89.jpg" alt="userPhoto">
+                <img src="https://st.depositphotos.com/1007168/1626/v/950/depositphotos_16268419-stock-illustration-happy-orange-book-mascot.jpg"
+                     alt="bookPhoto">
             </div>
             <div class="hrrrrr">
                 <div class="wrapp">
-                    <label>First name:</label>
-                    <p>${author.first_name}</p>
-                </div>
-                <div class="wrapp">
-                    <label>Last name:</label>
-                    <p>${author.last_name}</p>
-                </div>
-                <div class="wrapp">
-                    <label>Patronymic:</label>
-                    <p>${author.patronymic}</p>
+                    <label>Authors:</label>
+                      <#list authors as author>
+                          <label>${author.nick_name}</label><br>
+                      </#list>
                 </div>
                 <div class="wrapp">
                     <label>Country:</label>
-                    <p>${author.country.name}</p>
+                    <p>${book.country.name}</p>
                 </div>
                 <div class="wrapp">
-                    <label>Gender:</label>
-                    <p>Male</p>
+                    <label>Publication date:</label>
+                    <p>${book.publication_date}</p>
                 </div>
                 <div class="wrapp">
-                    <label>Birthday:</label>
-                    <p>${author.birthday}</p>
-                </div>
-                <div class="wrapp">
-                    <label>Deathday:</label>
-                    <p>${author.deathday}</p>
+                    <label>Page:</label>
+                    <p>${book.page_count}</p>
                 </div>
             </div>
         </div>
-        <div class="Biography">
-            <label>Biography:</label>
+        <div class="briefInfo">
+            <label>Brief info:</label>
             <p>
                 Artistic style is a special style of speech that has become widely used both in the world literature
                 literature in general and in copywriting in particular. He is characterized by high emotionality, direct
@@ -93,8 +86,8 @@
         </div>
     </div>
 </div>
+</body>
 <footer>
     Made by Zufar
 </footer>
-</body>
 </html>

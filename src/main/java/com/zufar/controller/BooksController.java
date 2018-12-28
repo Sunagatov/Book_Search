@@ -2,7 +2,6 @@ package com.zufar.controller;
 
 import com.zufar.domain.Author;
 import com.zufar.domain.Book;
-import com.zufar.domain.Genre;
 import com.zufar.service.AuthorService;
 import com.zufar.service.BookService;
 import com.zufar.service.GenreService;
@@ -12,11 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 public class BooksController {
@@ -40,13 +35,15 @@ public class BooksController {
     public String getBooks(ModelMap modelMap) {
         List<Book> books = bookService.getAll();
         modelMap.addAttribute("books", books);
-        return "bookList";
+        return "bookListView";
     }
 
     @GetMapping("/book/{id}")
     public String getBook(@PathVariable(value = "id") long id, ModelMap modelMap) {
         Book book = bookService.get(id);
         modelMap.addAttribute("book", book);
-        return "bookProfile";
+        List<Author> authors = book.getAuthors();
+        modelMap.addAttribute("authors", authors);
+        return "bookProfileView";
     }
 }

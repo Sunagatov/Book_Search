@@ -42,7 +42,9 @@ public class Author {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.ALL
+    })
     @JoinTable(name = "Authors_Books",
             joinColumns = {@JoinColumn(name = "author_id")},
             inverseJoinColumns = {@JoinColumn(name = "book_id")}

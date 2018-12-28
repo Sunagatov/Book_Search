@@ -26,6 +26,11 @@
     </ul>
 </div>
 <div class="main">
+    <div class="text">
+        <form action="getAddAuthorView" method="get">
+            <input type="submit" value="Add">
+        </form>
+    </div>
     <main class="cards">
         <#list authors as author>
             <article class="card">
@@ -46,6 +51,9 @@
                             <input type="submit" value="Learn">
                         </form>
                     </div>
+                    <form action="" method="get">
+                        <input type="submit" value="Delete">
+                    </form>
                 </div>
             </article>
         </#list>

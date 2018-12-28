@@ -1,12 +1,10 @@
 package com.zufar.service;
 
-import com.zufar.domain.Author;
-import com.zufar.domain.Country;
-import com.zufar.domain.Genre;
-import com.zufar.domain.Sex;
+import com.zufar.domain.*;
 import com.zufar.dto.AuthorDTO;
 import com.zufar.dto.DateDTO;
 import com.zufar.repository.AuthorRepository;
+import com.zufar.repository.BookRepository;
 import com.zufar.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -22,11 +21,13 @@ public class AuthorService {
 
     private final AuthorRepository authorRepository;
     private final CountryRepository countryRepository;
+    private final BookRepository bookRepository;
 
     @Autowired
-    public AuthorService(AuthorRepository authorRepository, CountryRepository countryRepository) {
+    public AuthorService(AuthorRepository authorRepository, CountryRepository countryRepository, BookRepository bookRepository) {
         this.authorRepository = authorRepository;
         this.countryRepository = countryRepository;
+        this.bookRepository = bookRepository;
     }
 
     public Long save(AuthorDTO authorDTO) {
@@ -52,6 +53,8 @@ public class AuthorService {
 
     public void delete(Author author) {
         authorRepository.delete(author);
+        List<Long> bookIds = author.getBooks().stream().map(Book::getId).collect(Collectors.toList());
+        bookRepository.delete(bookIds);
     }
 
     public void update(Author author) {

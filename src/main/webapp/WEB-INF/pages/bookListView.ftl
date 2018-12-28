@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta http-equiv="content-type" content="text/html"/>
     <meta name="author" content=""/>
@@ -18,7 +18,6 @@
 </div>
 <div class='navigation'>
     <ul>
-        <li>
         <li>
             <form action="/authors" method="get">
                 <input id="menuButton" value="Authors" type="submit"/>
@@ -45,6 +44,9 @@
                              <input type="submit" value="Learn">
                          </form>
                      </div>
+                     <form action="" method="get">
+                         <input type="submit" value="Delete">
+                     </form>
                  </div>
              </article>
          </#list>

@@ -29,7 +29,9 @@ public class Book {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST
+    })
     @JoinTable(name = "Books_Genres",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = {@JoinColumn(name = "genre_id")}
