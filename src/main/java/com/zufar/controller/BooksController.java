@@ -46,4 +46,11 @@ public class BooksController {
         modelMap.addAttribute("authors", authors);
         return "bookProfileView";
     }
+
+    @GetMapping("/deleteBook/{id}")
+    public String deleteBook(@PathVariable(value = "id") long id) {
+        Book book = bookService.get(id);
+        bookService.delete(book);
+        return "bookListView";
+    }
 }

@@ -40,10 +40,10 @@ public class AuthorsController {
         return "addAuthorView";
     }
 
-    @GetMapping("/getUpdateAuthorView/{id")
-    public String updateAuthor(@PathVariable(value = "id") long id, ModelMap modelMap) {
+    @GetMapping("/getUpdateAuthorView/{id}")
+    public String getUpdateAuthorView(@PathVariable(value = "id") long id, ModelMap modelMap) {
         Author author = authorService.get(id);
-        modelMap.addAttribute("author",author);
+        modelMap.addAttribute("author", author);
         List<Book> books = author.getBooks();
         modelMap.addAttribute("books", books);
         List<Country> countries = countryService.getAll();
@@ -90,5 +90,12 @@ public class AuthorsController {
         List<Book> books = author.getBooks();
         modelMap.addAttribute("books", books);
         return "authorProfileView";
+    }
+
+    @GetMapping("/deleteAuthor/{id}")
+    public String deleteAuthor(@PathVariable(value = "id") long id) {
+        Author author = authorService.get(id);
+        authorService.delete(author);
+        return "authorListView";
     }
 }

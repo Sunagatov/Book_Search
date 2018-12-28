@@ -26,10 +26,16 @@
     </ul>
 </div>
 <div class="main">
+    <div class="learn">
+        <form action="getAddBookView" method="get">
+            <input type="submit" value="Add new Book">
+        </form>
+    </div>
     <main class="cards">
          <#list books as book>
              <article class="card">
-                 <img src="https://st.depositphotos.com/1007168/1626/v/950/depositphotos_16268419-stock-illustration-happy-orange-book-mascot.jpg" alt="Sample photo">
+                 <img src="https://st.depositphotos.com/1007168/1626/v/950/depositphotos_16268419-stock-illustration-happy-orange-book-mascot.jpg"
+                      alt="Sample photo">
                  <div class="text">
                      <div class="info">
                          <h3>Title:</h3>
@@ -44,9 +50,16 @@
                              <input type="submit" value="Learn">
                          </form>
                      </div>
-                     <form action="" method="get">
-                         <input type="submit" value="Delete">
-                     </form>
+                     <div class="learn">
+                         <form action="/updateBook/${book.id}" method="get">
+                             <input type="submit" value="Update">
+                         </form>
+                     </div>
+                     <div class="learn">
+                         <form action="/deletebook/${book.id}" method="get">
+                             <input type="submit" value="Delete">
+                         </form>
+                     </div>
                  </div>
              </article>
          </#list>
