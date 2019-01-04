@@ -26,7 +26,7 @@
     </ul>
 </div>
 <div class="main">
-    <div class="learn">
+    <div class="addNewItem">
         <form action="getAddBookView" method="get">
             <input type="submit" value="Add new Book">
         </form>
@@ -51,12 +51,12 @@
                          </form>
                      </div>
                      <div class="learn">
-                         <form action="/updateBook/${book.id}" method="get">
+                         <form action="/updateBookView/${book.id}" method="get">
                              <input type="submit" value="Update">
                          </form>
                      </div>
                      <div class="learn">
-                         <form action="/deletebook/${book.id}" method="get">
+                         <form action="/deleteBook/${book.id}" method="get">
                              <input type="submit" value="Delete">
                          </form>
                      </div>

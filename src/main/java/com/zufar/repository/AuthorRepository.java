@@ -44,7 +44,7 @@ public class AuthorRepository {
                 getResultList();
     }
 
-    public List<Author> getAll(Set<Long> authorIds) {
+    public List<Author> getAll(List<Long> authorIds) {
         return sessionFactory.getCurrentSession().
                 createQuery("from Author c where c.id in ?1", Author.class).
                 setParameter(1, authorIds).

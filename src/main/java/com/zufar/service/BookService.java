@@ -40,13 +40,12 @@ public class BookService {
 
     public void save(BookDTO bookDTO) {
         DateDTO publication_dateDTO = bookDTO.getPublication_date();
-        LocalDate publication_date = LocalDate.of(publication_dateDTO.getYear(), publication_dateDTO.getMonth(), publication_dateDTO.getDay());
+        LocalDate publication_date = LocalDate.of(publication_dateDTO.getYear(), publication_dateDTO.getMonth(),
+                publication_dateDTO.getDay());
         Long countryId = bookDTO.getCountryId();
         Country country = countryRepository.get(countryId);
-        Set<Long> authorsIds = bookDTO.getAuthorsIds();
-        List<Author> authors = authorRepository.getAll(authorsIds);
-        Set<Long> genresIds = bookDTO.getGenresIds();
-        List<Genre> genres = genreRepository.getAll(genresIds);
+        List<Author> authors = authorRepository.getAll(bookDTO.getAuthorsIds());
+        List<Genre> genres = genreRepository.getAll(bookDTO.getGenresIds());
         Book book = new Book();
         book.setTitle(bookDTO.getTitle());
         book.setPublication_date(publication_date);
@@ -55,14 +54,23 @@ public class BookService {
         book.setGenres(genres);
         book.setAuthors(authors);
         bookRepository.persist(book);
+        for (Author author : authors) {
+            author.getBooks().add(book);
+            authorRepository.update(author);
+        }
+
     }
 
     public void delete(Book book) {
+        for (Author author : book.getAuthors()) {
+            author.getBooks().remove(book);
+            authorRepository.update(author);
+        }
         bookRepository.delete(book);
     }
 
-    public void update(Book author) {
-        bookRepository.update(author);
+    public void update(Book book) {
+        bookRepository.update(book);
     }
 
     public Book get(Long id) {
@@ -71,5 +79,9 @@ public class BookService {
 
     public List<Book> getAll() {
         return bookRepository.getAll();
+    }
+
+    public List<Book> getAll(List<Long> bookIds) {
+        return bookRepository.getAll(bookIds);
     }
 }

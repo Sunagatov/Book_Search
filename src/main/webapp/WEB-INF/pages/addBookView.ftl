@@ -18,7 +18,7 @@
 <div class='navigation'>
     <ul>
         <li>
-            <form action="/books" method="post">
+            <form action="/books" method="get">
                 <input id="menuButton" value="Books" type="submit"/>
             </form>
         </li>
@@ -30,28 +30,28 @@
     </ul>
 </div>
 <div class="main">
-    <form action="addAuthor" method="post">
+    <form action="addBook" method="post">
         <div class="registration">
             <h2>Add new book</h2>
             <hr id="line">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" placeholder="title..">
             <label for="countryName">Country:</label>
-            <select id="countryName" name="countryName">
+            <select id="countryName" name="country">
                 <option value="-1">Country:</option>
                 <#list countries as country>
                     <option value="${country.id}">${country.name}</option>
                 </#list>
             </select>
             <label for="authors">Authors:</label>
-            <select>
+            <select name="authors" multiple>
                 <option value="-1">Authors:</option>
                 <#list authors as author>
                     <option value="${author.id}">${author.nick_name}</option>
                 </#list>
             </select>
-            <label for="authors">Genres:</label>
-            <select>
+            <label for="genres">Genres:</label>
+            <select name="genres" multiple>
                 <option value="-1">Genres:</option>
                 <#list genres as genre>
                     <option value="${genre.id}">${genre.name}</option>
@@ -62,7 +62,7 @@
             <label>Publication date:</label>
             <div class="publicationDate">
                 <div class="publicationDate_Day">
-                    <select>
+                    <select name="publicationDay">
                         <option value="-1">Day:</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -97,7 +97,7 @@
                     </select>
                 </div>
                 <div class="publicationDate_Month">
-                    <select>
+                    <select name="publicationMonth">
                         <option value="-1">Month:</option>
                         <option value="1">Jan</option>
                         <option value="2">Feb</option>
@@ -114,7 +114,7 @@
                     </select>
                 </div>
                 <div class="publicationDate_Year">
-                    <select>
+                    <select name="publicationYear">
                         <option value="-1">Year:</option>
                         <option value="2012">2012</option>
                         <option value="2011">2011</option>

@@ -26,7 +26,6 @@ public class BookRepository {
         sessionFactory.getCurrentSession().delete(book);
     }
 
-
     public void delete(List<Long> bookIds) {
         sessionFactory.getCurrentSession().createQuery("from Book c where c.id in ?1", Book.class).
                 setParameter(1, bookIds);

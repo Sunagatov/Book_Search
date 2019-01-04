@@ -26,8 +26,8 @@
     </ul>
 </div>
 <div class="main">
-    <div class="logo">
-        <form action="getAddAuthorView" method="get">
+    <div class="addNewItem">
+        <form action="addAuthorView" method="get">
             <input type="submit" value="Add new author">
         </form>
     </div>
@@ -52,7 +52,7 @@
                         </form>
                     </div>
                     <div class="learn">
-                        <form action="/updateAuthor/${author.id}" method="get">
+                        <form action="/updateAuthorView/${author.id}" method="get">
                             <input type="submit" value="Update">
                         </form>
                     </div>

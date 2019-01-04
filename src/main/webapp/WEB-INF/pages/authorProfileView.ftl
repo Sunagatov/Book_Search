@@ -40,9 +40,11 @@
             <div class="hrrrrr">
                 <div class="wrapp">
                     <label>Books:</label>
-                      <#list books as book>
-                          <label>${book.title}</label>
-                      </#list>
+                    <p>
+                    <#list books as book>
+                        ${book.title}<br>
+                    </#list>
+                    </p>
                 </div>
                 <div class="wrapp">
                     <label>First name:</label>

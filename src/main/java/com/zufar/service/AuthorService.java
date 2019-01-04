@@ -35,9 +35,8 @@ public class AuthorService {
         DateDTO deathdayDTO = authorDTO.getDeathday();
         LocalDate birthday = LocalDate.of(birthdayDTO.getYear(), birthdayDTO.getMonth(), birthdayDTO.getDay());
         LocalDate deathday = LocalDate.of(deathdayDTO.getYear(), deathdayDTO.getMonth(), deathdayDTO.getDay());
-        Long countryId = authorDTO.getCountryId();
-        Country country = countryRepository.get(countryId);
-
+        Country country = countryRepository.get(authorDTO.getCountryId());
+        List<Book> books = bookRepository.getAll(authorDTO.getBooksIds());
         Author author = new Author();
         author.setFirst_name(authorDTO.getFirst_name());
         author.setLast_name(authorDTO.getLast_name());
@@ -46,15 +45,20 @@ public class AuthorService {
         author.setBirthday(birthday);
         author.setDeathday(deathday);
         author.setSex(Sex.MALE);
+        author.setBooks(books);
         author.setCountry(country);
-
-        return authorRepository.persist(author);
+        Long authorId = authorRepository.persist(author);
+        for (Book book : books) {
+            book.getAuthors().add(author);
+            bookRepository.update(book);
+        }
+        return authorId;
     }
 
     public void delete(Author author) {
-        authorRepository.delete(author);
         List<Long> bookIds = author.getBooks().stream().map(Book::getId).collect(Collectors.toList());
         bookRepository.delete(bookIds);
+        authorRepository.delete(author);
     }
 
     public void update(Author author) {
@@ -69,7 +73,7 @@ public class AuthorService {
         return authorRepository.getAll();
     }
 
-    public List<Author> getAll(Set<Long> authorIds) {
+    public List<Author> getAll(List<Long> authorIds) {
         return authorRepository.getAll(authorIds);
     }
 }

@@ -2,13 +2,14 @@ package com.zufar.dto;
 
 import com.zufar.domain.Country;
 
+import java.util.List;
 import java.util.Set;
 
 public class BookDTO {
 
     private Long id;
     private String title;
-    private Set<Long> authors;
+    private List<Long> authors;
     private Set<Long> reviews;
     private DateDTO publication_date;
     private Long countryId;
@@ -16,6 +17,16 @@ public class BookDTO {
     private int page_count;
 
     public BookDTO() {
+    }
+
+    public BookDTO(String title, List<Long> authors,  Set<Long> genresIds,
+                   DateDTO publication_date, Long countryId,  int page_count) {
+        this.title = title;
+        this.authors = authors;
+        this.publication_date = publication_date;
+        this.countryId = countryId;
+        this.genresIds = genresIds;
+        this.page_count = page_count;
     }
 
     public Long getId() {
@@ -34,11 +45,11 @@ public class BookDTO {
         this.title = title;
     }
 
-    public Set<Long> getAuthorsIds() {
+    public List<Long> getAuthorsIds() {
         return authors;
     }
 
-    public void setAuthorsIds(Set<Long> authors) {
+    public void setAuthorsIds(List<Long> authors) {
         this.authors = authors;
     }
 

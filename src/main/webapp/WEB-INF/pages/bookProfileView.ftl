@@ -43,9 +43,11 @@
             <div class="hrrrrr">
                 <div class="wrapp">
                     <label>Authors:</label>
+                    <p>
                       <#list authors as author>
-                          <label>${author.nick_name}</label><br>
+                          ${author.nick_name}<br>
                       </#list>
+                    </p>
                 </div>
                 <div class="wrapp">
                     <label>Country:</label>

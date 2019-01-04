@@ -392,3 +392,13 @@ input[type="text"], input[type="password"], input[type="email"] {
       margin-right: 7px;  
     }
 
+    .addNewItem [type="submit"] {
+        width: 450px;
+        background-color: #f22e7d;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }

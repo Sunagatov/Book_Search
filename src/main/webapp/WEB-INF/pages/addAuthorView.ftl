@@ -18,7 +18,7 @@
 <div class='navigation'>
     <ul>
         <li>
-            <form action="/books" method="post">
+            <form action="/books" method="get">
                 <input id="menuButton" value="Books" type="submit"/>
             </form>
         </li>
@@ -43,14 +43,14 @@
             <label for="nickname">Nickname:</label>
             <input type="text" id="nickname" name="nickname" placeholder="Your nickname..">
             <label for="countryName">Country:</label>
-            <select id="countryName" name="countryName">
+            <select id="countryName" name="country">
                 <option value="-1">Country:</option>
                 <#list countries as country>
                     <option value="${country.id}">${country.name}</option>
                 </#list>
             </select>
             <label for="books">Books:</label>
-            <select>
+            <select name="books" multiple>
                 <option value="-1">Books:</option>
                 <#list books as book>
                     <option value="${book.id}">${book.title}</option>
@@ -59,7 +59,7 @@
             <label>Birthday:</label>
             <div class="publicationDate">
                 <div class="publicationDate_Day">
-                    <select>
+                    <select name="birthDay">
                         <option value="-1">Day:</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -94,7 +94,7 @@
                     </select>
                 </div>
                 <div class="publicationDate_Month">
-                    <select>
+                    <select name="birthMonth">
                         <option value="-1">Month:</option>
                         <option value="1">Jan</option>
                         <option value="2">Feb</option>
@@ -111,7 +111,7 @@
                     </select>
                 </div>
                 <div class="publicationDate_Year">
-                    <select>
+                    <select name="birthYear">
                         <option value="-1">Year:</option>
                         <option value="2012">2012</option>
                         <option value="2011">2011</option>

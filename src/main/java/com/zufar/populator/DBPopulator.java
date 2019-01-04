@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -130,7 +131,7 @@ public class DBPopulator {
         Long bradburyId = authorService.save(bradbury);
         Long asimovId = authorService.save(asimov);
 
-        Set<Long> authorsIds = new HashSet<>();
+        List<Long> authorsIds = new ArrayList<>();
         authorsIds.add(orwelId);
         authorsIds.add(coelhoId);
         authorsIds.add(bradburyId);
@@ -199,9 +200,10 @@ public class DBPopulator {
         for (Book book : allBooks) {
             ++i;
             Book current = book;
-            System.out.println(i+" - "+book.getTitle());
+            System.out.println(i + " - " + book.getTitle());
+            System.out.println("---------------------------------");
             for (Author author : book.getAuthors()) {
-                System.out.println(author.getNick_name());
+                System.out.println("- " + author.getNick_name());
             }
         }
     }

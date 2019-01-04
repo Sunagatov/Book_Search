@@ -1,6 +1,9 @@
 package com.zufar.dto;
 
-import java.util.Set;
+import com.zufar.domain.Author;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class AuthorDTO {
 
@@ -13,9 +16,38 @@ public class AuthorDTO {
     private DateDTO birthday;
     private DateDTO deathday;
     private Long countryId;
-    private Set<Long> booksIds;
+    private List<Long> booksIds;
 
     public AuthorDTO() {
+    }
+
+    public AuthorDTO(String first_name, String last_name, String patronymic, String nick_name, String biography,
+                     DateDTO birthday, DateDTO deathday, Long countryId, List<Long> booksIds) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.patronymic = patronymic;
+        this.nick_name = nick_name;
+        this.biography = biography;
+        this.birthday = birthday;
+        this.deathday = deathday;
+        this.countryId = countryId;
+        this.booksIds = booksIds;
+    }
+
+    public AuthorDTO(Author author) {
+        this.first_name = author.getFirst_name();
+        this.last_name = author.getLast_name();
+        this.patronymic = author.getPatronymic();
+        this.nick_name = author.getNick_name();
+        this.biography = author.getBiography();
+        LocalDate birthday = author.getBirthday();
+        Integer birthYear = Integer.valueOf(Integer.toString(birthday.getYear()).replace(",", ""));
+        this.birthday = new DateDTO(birthYear, birthday.getMonthValue(), birthday.getDayOfMonth());
+        LocalDate deathday = author.getDeathday();
+        Integer deathYear = Integer.valueOf(Integer.toString(deathday.getYear()).replace(",", ""));
+        this.deathday = new DateDTO(deathYear, deathday.getMonthValue(), deathday.getDayOfMonth());
+        this.countryId = countryId;
+        this.booksIds = booksIds;
     }
 
     public Long getId() {
@@ -90,11 +122,11 @@ public class AuthorDTO {
         this.countryId = countryId;
     }
 
-    public Set<Long> getBooksIds() {
+    public List<Long> getBooksIds() {
         return booksIds;
     }
 
-    public void setBooksIds(Set<Long> booksIds) {
+    public void setBooksIds(List<Long> booksIds) {
         this.booksIds = booksIds;
     }
 }

@@ -18,7 +18,7 @@
 <div class='navigation'>
     <ul>
         <li>
-            <form action="/books" method="post">
+            <form action="/books" method="get">
                 <input id="menuButton" value="Books" type="submit"/>
             </form>
         </li>
@@ -30,40 +30,42 @@
     </ul>
 </div>
 <div class="main">
-    <form action="addAuthor" method="post">
+    <form action="/updateBook/${book.id}" method="post">
         <div class="registration">
-            <h2>Add new book</h2>
+            <h2>Update book</h2>
             <hr id="line">
             <label for="title">Title:</label>
-            <input type="text" id="title" name="title" placeholder="title..">
+            <input type="text" id="title" name="title" value="${book.title}">
             <label for="countryName">Country:</label>
-            <select id="countryName" name="countryName">
+            <select id="countryName" name="country">
                 <option value="-1">Country:</option>
+                <option selected="selected" value="${book.country.id}">
+                    ${book.country.name}
+                </option>
                 <#list countries as country>
                     <option value="${country.id}">${country.name}</option>
                 </#list>
             </select>
             <label for="authors">Authors:</label>
-            <select>
+            <select multiple name="authors">
                 <option value="-1">Authors:</option>
+                <#list bookAuthors as bookAuthor>
+                    <option selected="selected" value="${bookAuthor.id}">${bookAuthor.nick_name}</option>
+                </#list>
                 <#list authors as author>
                     <option value="${author.id}">${author.nick_name}</option>
                 </#list>
             </select>
-            <label for="authors">Genres:</label>
-            <select>
-                <option value="-1">Genres:</option>
-                <#list genres as genre>
-                    <option value="${genre.id}">${genre.name}</option>
-                </#list>
-            </select>
             <label for="title">Page count:</label>
-            <input type="text" id="page_count" name="page_count" placeholder="page_count..">
+            <input type="text" id="page_count" name="pageCount" value="${book.page_count}">
             <label>Publication date:</label>
             <div class="publicationDate">
                 <div class="publicationDate_Day">
-                    <select>
+                    <select name="publicationDay">
                         <option value="-1">Day:</option>
+                        <option selected="selected" value="${book.publication_date.dayOfMonth}">
+                            ${book.publication_date.dayOfMonth}
+                        </option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -97,8 +99,11 @@
                     </select>
                 </div>
                 <div class="publicationDate_Month">
-                    <select>
+                    <select name="publicationMonth">
                         <option value="-1">Month:</option>
+                        <option selected="selected" value="${book.publication_date.monthValue}">
+                            ${book.publication_date.monthValue} month of year
+                        </option>
                         <option value="1">Jan</option>
                         <option value="2">Feb</option>
                         <option value="3">Mar</option>
@@ -114,8 +119,11 @@
                     </select>
                 </div>
                 <div class="publicationDate_Year">
-                    <select>
+                    <select name="publicationYear">
                         <option value="-1">Year:</option>
+                        <option selected="selected" value="${publicationYear}">
+                            ${publicationYear}
+                        </option>
                         <option value="2012">2012</option>
                         <option value="2011">2011</option>
                         <option value="2010">2010</option>

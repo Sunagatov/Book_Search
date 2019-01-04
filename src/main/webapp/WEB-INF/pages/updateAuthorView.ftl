@@ -18,7 +18,7 @@
 <div class='navigation'>
     <ul>
         <li>
-            <form action="/books" method="post">
+            <form action="/books" method="get">
                 <input id="menuButton" value="Books" type="submit"/>
             </form>
         </li>
@@ -30,20 +30,20 @@
     </ul>
 </div>
 <div class="main">
-    <form action="updateAuthor" method="post">
+    <form action="/updateAuthor/${author.id}" method="post">
         <div class="registration">
             <h2>Update the existing author</h2>
             <hr id="line">
             <label for="fname">First Name:</label>
-            <input type="text" id="fname" name="first_name" placeholder="${author.first_name}">>
+            <input type="text" id="fname" name="first_name" value="${author.first_name}">
             <label for="lname">Last Name:</label>
-            <input type="text" id="lname" name="last_name" placeholder="${author.last_name}">
+            <input type="text" id="lname" name="last_name" value="${author.last_name}">
             <label for="patronymic">Patronymic:</label>
-            <input type="text" id="patronymic" name="patronymic" placeholder="${author.patronymic}">
+            <input type="text" id="patronymic" name="patronymic" value="${author.patronymic}">
             <label for="nickname">Nickname:</label>
-            <input type="text" id="nickname" name="nickname" placeholder="${author.nick_name}">
+            <input type="text" id="nickname" name="nickname" value="${author.nick_name}">
             <label for="countryName">Country:</label>
-            <select id="countryName" name="countryName">
+            <select id="countryName" name="country">
                 <option value="-1">Country:</option>
                 <option selected="selected" value="${author.country.id}">
                     ${author.country.name}
@@ -53,8 +53,11 @@
                 </#list>
             </select>
             <label>Books:</label>
-            <select>
+            <select multiple name="books">
                 <option value="-1">Books:</option>
+                <#list authorBooks as authorBook>
+                    <option selected="selected" value="${authorBook.id}">${authorBook.title}</option>
+                </#list>
                 <#list books as book>
                     <option value="${book.id}">${book.title}</option>
                 </#list>
@@ -64,6 +67,9 @@
                 <div class="publicationDate_Day">
                     <select name="birthDay">
                         <option value="-1">Day:</option>
+                        <option selected="selected" value="${author.birthday.dayOfMonth}">
+                            ${author.birthday.dayOfMonth}
+                        </option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -99,6 +105,9 @@
                 <div class="publicationDate_Month">
                     <select name="birthMonth">
                         <option value="-1">Month:</option>
+                        <option selected="selected" value="${author.birthday.monthValue}">
+                            ${author.birthday.monthValue} month of year
+                        </option>
                         <option value="1">Jan</option>
                         <option value="2">Feb</option>
                         <option value="3">Mar</option>
@@ -116,6 +125,9 @@
                 <div class="publicationDate_Year">
                     <select name="birthYear">
                         <option value="-1">Year:</option>
+                        <option selected="selected" value="${birthYear}">
+                            ${birthYear}
+                        </option>
                         <option value="2012">2012</option>
                         <option value="2011">2011</option>
                         <option value="2010">2010</option>
@@ -146,6 +158,9 @@
                 <div class="publicationDate_Day">
                     <select name="deathDay">
                         <option value="-1">Day:</option>
+                        <option selected="selected" value="${author.deathday.dayOfMonth}">
+                            ${author.deathday.dayOfMonth}
+                        </option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -181,6 +196,9 @@
                 <div class="publicationDate_Month">
                     <select name="deathMonth">
                         <option value="-1">Month:</option>
+                        <option selected="selected" value="${author.deathday.monthValue}">
+                            ${author.deathday.monthValue} month of year
+                        </option>
                         <option value="1">Jan</option>
                         <option value="2">Feb</option>
                         <option value="3">Mar</option>
@@ -198,6 +216,9 @@
                 <div class="publicationDate_Year">
                     <select name="deathYear">
                         <option value="-1">Year:</option>
+                        <option selected="selected" value="${deathYear}">
+                            ${deathYear}
+                        </option>
                         <option value="2012">2012</option>
                         <option value="2011">2011</option>
                         <option value="2010">2010</option>
@@ -224,7 +245,7 @@
                 </div>
             </div>
             <div class="SubmitButton">
-                <input type="submit" value="add">
+                <input type="submit" value="update">
             </div>
         </div>
     </form>
